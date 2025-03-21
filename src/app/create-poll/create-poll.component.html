@@ -1,0 +1,29 @@
+<div class="poll-card">
+  <h2>Create a Poll</h2>
+
+  <form [formGroup]="pollForm" (ngSubmit)="submitPoll()">
+    
+    <label>Poll Question:</label>
+    <input type="text" formControlName="question" placeholder="Enter your poll question" />
+
+    <div formArrayName="choices">
+      <label>Choices:</label>
+      <div *ngFor="let choice of choices.controls; let i = index" class="choice-container">
+        <input type="text" [formControlName]="i" placeholder="Enter choice" />
+        <button type="button" class="remove-btn" (click)="removeChoice(i)">❌</button>
+      </div>
+    </div>
+
+    <button type="button" class="add-choice-btn" (click)="addChoice()">Add Choice</button>
+
+    <label>Poll Duration (Hours):</label>
+    <input type="number" formControlName="pollLength" min="1" />
+
+    <div class="allow-multiple-container">
+      <input type="checkbox" formControlName="allowMultipleSelect" id="allowMultipleSelect" />
+      <label for="allowMultipleSelect">Allow multiple selections</label>
+    </div>
+
+    <button type="submit" [disabled]="pollForm.invalid">Create Poll</button>
+  </form>
+</div>

@@ -1,0 +1,22 @@
+<div>
+    <h1>User Profile</h1>
+
+    <label>First Name:</label>
+    <input type="text" [(ngModel)]="userData.firstName" [disabled]="!isEditing">
+
+    <label>Last Name:</label>
+    <input type="text" [(ngModel)]="userData.lastName" [disabled]="!isEditing">
+
+    <label>Email:</label>
+    <input type="email" [(ngModel)]="userData.email" [disabled]="!isEditing">
+
+    <label>Phone Number:</label>
+    <input type="text" [(ngModel)]="userData.phone" [disabled]="!isEditing">
+
+    <br><br>
+
+    
+    <button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
+    <button *ngIf="isEditing" (click)="updateUser()">Update</button>
+    <button *ngIf="isEditing" (click)="cancelEdit()">Cancel</button>
+</div>

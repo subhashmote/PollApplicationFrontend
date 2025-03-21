@@ -1,0 +1,21 @@
+<div class="dashboard-container">
+  
+    <nav class="sidebar">
+      <div class="logo">
+        <h2>Poll App</h2>
+      </div>
+      <ul>
+        <li><a routerLink="/dashboard/all-polls"><i class="fas fa-list"></i> All Polls</a></li>
+        <li><a routerLink="/dashboard/create-poll"><i class="fas fa-plus-circle"></i> Create Poll</a></li>
+        <li><a routerLink="/dashboard/my-polls"><i class="fas fa-poll"></i> My Polls</a></li>
+        <li><a routerLink="/dashboard/profile"><i class="fas fa-user"></i> Profile</a></li>
+      </ul>
+      <button class="logout-btn" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </nav>
+  
+    
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  

@@ -1,0 +1,25 @@
+<div class="polls-container">
+  <h2>My Polls</h2>
+
+  <div *ngIf="myPolls.length === 0" class="no-polls">
+    <p>You have not created any polls yet. 🤷‍♂️</p>
+  </div>
+
+  <div class="poll-card" *ngFor="let poll of myPolls | paginate: { itemsPerPage: pollsPerPage, currentPage: currentPage }">
+    <h3>{{ poll.question }}</h3>
+
+    <div class="choices">
+      <div *ngFor="let choice of poll.choices" class="choice">
+        <span>{{ choice.text }}</span>
+        <span class="vote-count">Votes: {{ choice.voteCount }}</span>
+      </div>
+    </div>
+
+    <button type="button" (click)="pollAnalysis(poll.id)">View Analysis</button>
+
+    <p class="timestamp">Created At: {{ poll.createdAt | date:'medium' }}</p>
+  </div>
+
+  
+  <pagination-controls (pageChange)="currentPage = $event" previousLabel="Prev" nextLabel="Next"></pagination-controls>
+</div>

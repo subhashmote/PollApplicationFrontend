@@ -1,0 +1,27 @@
+
+
+<div class="polls-container">
+  <div class="poll-card" *ngFor="let poll of polls | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+    <h3>{{ poll.question }}</h3>
+    <p class="creator">Created by: {{ poll.createdBy.firstName }} {{ poll.createdBy.lastName }}</p>
+    
+    <div class="choices">
+      <label *ngFor="let choice of poll.choices">
+        <input 
+          type="checkbox" 
+          [checked]="selectedChoices[poll.id]?.includes(choice.id)"
+          (change)="toggleChoice(poll.id, choice.id)">
+        {{ choice.text }} (Votes: {{ choice.voteCount }})
+      </label>
+    </div>
+
+    <button (click)="vote(poll.id, selectedChoices[poll.id] || [])">
+      Submit Vote
+    </button>
+
+    <p class="timestamp">Created At: {{ poll.createdAt | date:'short' }}</p>
+  </div>
+</div>
+
+
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>

@@ -1,0 +1,76 @@
+<div>
+  <h1>Poll Analysis</h1>
+</div>
+
+<!-- Row 1: Poll Card -->
+<div class="row poll-row" *ngIf="poll">
+  <div class="poll-card">
+    <h2 class="question">{{ poll.question }}</h2>
+    <p class="creator">
+      Created by: {{ poll.createdBy.firstName }} {{ poll.createdBy.lastName }}
+    </p>
+    <div class="options">
+      <div class="option" *ngFor="let choice of poll.choices; let i = index">
+        <div class="option-text">{{ choice.text }}</div>
+        <div class="vote-info">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getVotePercentage(choice.voteCount)"></div>
+          </div>
+          <span class="vote-count">{{ choice.voteCount }} votes</span>
+          <button (click)="toggleVoters(i)" class="btn btn-link toggle-btn">
+            {{ choice.showVoters ? 'Hide voters' : 'Show voters' }}
+          </button>
+        </div>
+        <!-- Voters Table -->
+        <div *ngIf="choice.showVoters" class="voters-section">
+          <table *ngIf="choice.voters?.length > 0" class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let voter of choice.voters">
+                <td>{{ voter.id }}</td>
+                <td>{{ voter.firstName }} {{ voter.lastName }}</td>
+                <td>{{ voter.email }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <p *ngIf="!(choice.voters?.length > 0)" class="no-voters">No voters yet</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 2: Two Columns (Details Card & Pie Chart Card) -->
+<div class="row details-chart-row" *ngIf="poll">
+  <!-- Left Column: Details Card -->
+  <div class="column details-column">
+    <div class="detail-card">
+      <h3>Poll Details</h3>
+      <div class="detail-content">
+        <p><strong>Created by:</strong> {{ poll.createdBy.firstName }} {{ poll.createdBy.lastName }}</p>
+        <p><strong>Email:</strong> {{ poll.createdBy.email }}</p>
+        <p><strong>Phone:</strong> {{ poll.createdBy.phone }}</p>
+        <p><strong>Created At:</strong> {{ poll.createdAt | date:'medium' }}</p>
+      </div>
+    </div>
+  </div>
+  <!-- Right Column: Pie Chart Card -->
+  <div class="column chart-column">
+    <div class="chart-card">
+      <h3>Poll Vote Distribution</h3>
+      <div class="pie-chart" [style.background]="getPieChartStyle()"></div>
+      <div class="pie-legend">
+        <div class="legend-item" *ngFor="let choice of poll.choices; let i = index">
+          <span class="legend-color" [style.background]="dynamicColors[i]"></span>
+          <span class="legend-label">{{ choice.text }} ({{ choice.voteCount }} votes)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
