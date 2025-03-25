@@ -17,7 +17,38 @@ export class PollanalysisComponent implements OnInit {
   poll: any = null;
   pollId: number | null = null;
 
-  dynamicColors: string[] = ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#4bc0c0', '#9966ff'];
+  dynamicColors: string[] = [
+    '#ff6384', // Pinkish red
+    '#36a2eb', // Light blue
+    '#cc65fe', // Purple
+    '#ffce56', // Yellow
+    '#4bc0c0', // Teal
+    '#9966ff', // Violet
+    '#e6194b', // Red
+    '#3cb44b', // Green
+    '#ffe119', // Mustard yellow
+    '#0082c8', // Blue
+    '#f58231', // Orange
+    '#911eb4', // Dark purple
+    '#46f0f0', // Cyan
+    '#f032e6', // Magenta
+    '#d2f53c', // Lime
+    '#fabebe', // Light pink
+    '#008080', // Teal (darker)
+    '#e6beff', // Lavender
+    '#aa6e28', // Brown
+    '#fffac8', // Light yellow
+    '#800000', // Maroon
+    '#aaffc3', // Mint
+    '#808000', // Olive
+    '#ffd8b1', // Peach
+    '#000080', // Navy
+    '#808080', // Gray
+    '#000000', // Black
+    '#d2691e', // Chocolate
+    '#b22222', // Firebrick
+    '#20b2aa'  // Light sea green
+  ];
 
   constructor(private pollservice: PollserviceService, private route: ActivatedRoute) {}
 

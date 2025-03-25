@@ -10,6 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { VerifyotpComponent } from './verifyotp/verifyotp.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PollanalysisComponent } from './pollanalysis/pollanalysis.component';
+import { UserPollanalysisComponent } from './user-pollanalysis/user-pollanalysis.component';
+import { ExpiredPollsComponent } from './expired-polls/expired-polls.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 export const routes: Routes = [
@@ -17,6 +20,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path:'verify/:userId',component:VerifyotpComponent},
     { path:'reset-password',component:ResetPasswordComponent},
+    {path:'forgot-password',component:ForgotPasswordComponent},
 
     {
         path: 'dashboard',
@@ -27,7 +31,9 @@ export const routes: Routes = [
             { path: 'create-poll', component: CreatePollComponent },
             { path: 'my-polls', component: MyPollsComponent },
             { path: 'profile', component: ProfileComponent },
-            {path:'poll-analysis/:pollId',component:PollanalysisComponent}
+            { path: 'expired-polls', component: ExpiredPollsComponent},
+            {path:'poll-analysis/:pollId',component:PollanalysisComponent},
+            { path: 'user-poll-analysis/:pollId', component: UserPollanalysisComponent }
         ]
     },
 

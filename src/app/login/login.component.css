@@ -69,3 +69,19 @@ button:disabled {
 .register-btn, .login-btn {
   margin-top: 10px;
 }
+
+
+.forgot-password {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.forgot-password a {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}

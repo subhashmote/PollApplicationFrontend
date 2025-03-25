@@ -1,5 +1,3 @@
-
-
 <div class="polls-container">
   <div class="poll-card" *ngFor="let poll of polls | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
     <h3>{{ poll.question }}</h3>
@@ -15,13 +13,17 @@
       </label>
     </div>
 
-    <button (click)="vote(poll.id, selectedChoices[poll.id] || [])">
-      Submit Vote
-    </button>
+    <div class="button-group">
+      <button type="button" class="submit-vote" (click)="vote(poll.id, selectedChoices[poll.id] || [])">
+        Submit Vote
+      </button>
+      <button type="button" class="view-analysis" (click)="userPollAnalysis(poll.id)">
+        View Analysis
+      </button>
+    </div>
 
     <p class="timestamp">Created At: {{ poll.createdAt | date:'short' }}</p>
   </div>
 </div>
-
 
 <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>

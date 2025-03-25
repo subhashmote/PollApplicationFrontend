@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { RouterModule } from '@angular/router';
-import { PollserviceService } from '../services/pollservice.service';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-all-polls',
@@ -15,20 +14,21 @@ import { PollserviceService } from '../services/pollservice.service';
 export class AllPollsComponent implements OnInit {
   polls: any[] = [];
   selectedChoices: { [pollId: number]: number[] } = {};
+  apiUrl = 'http://localhost:8080/poll/getpolls';
   
-
+  // Pagination properties
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 2; // Number of polls per page
 
-  constructor(private http: HttpClient,private pollservice:PollserviceService) {}
+  constructor(private http: HttpClient,private router: Router) {}
 
   ngOnInit() {
     this.getAllPolls();
   }
 
   getAllPolls() {
-    this.pollservice.getAllPolls().subscribe({
-      next: (data: any) => {
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: (data) => {
         this.polls = data;
       },
       error: (error) => {
@@ -43,20 +43,15 @@ export class AllPollsComponent implements OnInit {
     }
 
     const index = this.selectedChoices[pollId].indexOf(choiceId);
-
     if (index === -1) {
       this.selectedChoices[pollId].push(choiceId);
     } else {
       this.selectedChoices[pollId].splice(index, 1);
     }
-
-    console.log(this.selectedChoices);
   }
 
   vote(pollId: number, choiceIds: number[]) {
-    
     const user = JSON.parse(localStorage.getItem('user')!);
-
     if (!user) {
       alert('Please log in to vote.');
       return;
@@ -80,5 +75,10 @@ export class AllPollsComponent implements OnInit {
         alert('Error submitting vote.');
       }
     });
+  }
+
+
+  userPollAnalysis(pollId: number) {
+    this.router.navigate(['/dashboard/user-poll-analysis', pollId]);
   }
 }

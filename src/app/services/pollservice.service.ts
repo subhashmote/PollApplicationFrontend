@@ -24,4 +24,8 @@ export class PollserviceService {
   getAllPolls(){
     return this.http.get(`http://localhost:8080/poll/getpolls`);
   }
+
+  getExpiredPolls(){
+    return this.http.get(`http://localhost:8080/poll/get-expired-polls`);
+  }
 }

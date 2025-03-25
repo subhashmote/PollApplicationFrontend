@@ -1,20 +1,26 @@
-
 .dashboard-container {
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
+  display: flex;
+  height: 100vh;  /* Full viewport height */
+  background-color: #f4f4f4;
+  overflow: hidden; /* Prevent the entire dashboard from scrolling */
+}
   
   
-  .sidebar {
-    width: 250px;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
-  }
+.sidebar {
+  width: 250px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  height: 100vh; /* Fix sidebar height */
+  position: fixed; /* Fix sidebar position */
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto; /* Allow sidebar scrolling if needed */
+}
   
   .logo {
     text-align: center;
@@ -84,5 +90,7 @@
     padding: 20px;
     background-color: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
+    height: 100vh;
+    overflow-y: auto;
+    margin-left: 250px; 
+}

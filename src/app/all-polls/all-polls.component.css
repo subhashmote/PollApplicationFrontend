@@ -1,88 +1,58 @@
-/* Polls Container */
 .polls-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
   padding: 20px;
-  max-width: 600px;
-  margin: 0 auto;
 }
 
-/* Poll Card */
 .poll-card {
-  background: #ffffff;
-  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
   padding: 15px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.poll-card:hover {
-  transform: translateY(-2px);
+.creator, .timestamp {
+  font-size: 0.9rem;
+  color: #666;
 }
 
-/* Poll Question */
-.poll-card h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-
-/* Creator Info */
-.creator {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-/* Choices Section */
-.choices {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
-/* Choice Label */
 .choices label {
+  display: block;
+  margin: 8px 0;
+  font-size: 1rem;
+}
+
+/* Button group container */
+.button-group {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: color 0.2s;
+  margin-top: 15px;
+  width: 100%;
 }
 
-/* Checkbox Styling */
-.choices input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-
-/* Choice Label Hover */
-.choices label:hover {
-  color: #007bff;
-}
-
-/* Submit Vote Button */
-button {
-  background-color: #007bff;
-  color: white;
+/* Align buttons */
+.button-group .submit-vote {
+  background-color: #4caf50;
+  color: #fff;
   border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 6px;
+  padding: 8px 12px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  margin-right: auto; /* Pushes to the left */
 }
 
-button:hover {
-  background-color: #0056b3;
+.button-group .view-analysis {
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; /* Pushes to the right */
 }
 
-/* Timestamp */
-.timestamp {
-  font-size: 14px;
-  color: #888;
-  margin-top: 10px;
+/* Optional: Hover effects */
+.button-group button:hover {
+  opacity: 0.9;
 }

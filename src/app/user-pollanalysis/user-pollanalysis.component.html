@@ -1,0 +1,46 @@
+<div><h1>Poll Analysis</h1></div>
+
+<div class="row poll-row" *ngIf="poll">
+  <div class="poll-card">
+    <h2 class="question">{{ poll.question }}</h2>
+    <p class="creator">
+      Created by: {{ poll.createdBy.firstName }} {{ poll.createdBy.lastName }}
+    </p>
+    <p class="created-at">
+      Created at: {{ poll.createdAt | date:'medium' }}
+    </p>
+    <div class="options">
+      <div class="option" *ngFor="let choice of poll.choices; let i = index">
+        <div class="option-text">{{ choice.text }}</div>
+        <div class="vote-info">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getVotePercentage(choice.voteCount)"></div>
+          </div>
+          <span class="vote-count">{{ choice.voteCount }} votes</span>
+        </div>
+      </div>
+    </div>
+    <div class="summary">
+      <p class="total-votes">Total Votes: {{ getTotalVotes() }}</p>
+      <p class="most-voted">
+        Most Voted Option:
+        <ng-container *ngIf="getMostVotedOption().length === 0">
+          N/A
+        </ng-container>
+        <ng-container *ngIf="getMostVotedOption().length === 1">
+          {{ getMostVotedOption()[0].text }}
+        </ng-container>
+        <ng-container *ngIf="getMostVotedOption().length > 1">
+          <span *ngFor="let option of getMostVotedOption(); let last = last">
+            {{ option.text }}<span *ngIf="!last">, </span>
+          </span>
+        </ng-container>
+      </p>
+      
+    </div>
+  </div>
+</div>
+
+<p *ngIf="!poll">Loading poll data...</p>
+
+  

@@ -26,12 +26,10 @@ export class LoginComponent {
         // console.log(data);
         
         if (data.status === 200) {
-          
           localStorage.setItem('user', JSON.stringify(data.user));
-  
           alert("Login Successfully");
           this.router.navigate(['/dashboard']);
-        } else {
+        } else if(data.status === 401){
           alert("Invalid Email Or Password");
         }
       },
@@ -41,10 +39,12 @@ export class LoginComponent {
       }
     });
   }
-  
-  
-  
+
   goToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  goToForgotPassword(){
+    this.router.navigate(['/forgot-password']);
   }
 }

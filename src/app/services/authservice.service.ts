@@ -28,4 +28,8 @@ export class AuthserviceService {
   updateProfile(userId: number, userData: any) {
     return this.http.put(`http://localhost:8080/user/update/${userId}`,userData);
   }
+
+  updatePassword(formData:object){
+    return this.http.put(`http://localhost:8080/user/forgot-password`,formData);
+  }
 }
