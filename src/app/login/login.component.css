@@ -85,3 +85,16 @@ button:disabled {
 .forgot-password a:hover {
   text-decoration: underline;
 }
+
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+
+.error-message{
+  color: red;
+}

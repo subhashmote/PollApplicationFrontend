@@ -1,14 +1,37 @@
+
+<!-- <h2 class="live-polls-heading">Live Polls</h2> -->
+
 <div class="polls-container">
-  <div class="poll-card" *ngFor="let poll of polls | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-    <h3>{{ poll.question }}</h3>
+
+  <div class="filter-options">
+    <label for="sort">Sort by:</label>
+    <select id="sort" (change)="onSortChange($event)">
+      <option value="newest">Newest First</option>
+      <option value="oldest">Oldest First</option>
+      <option value="most-popular">Most Popular</option>
+      <option value="least-popular">Least Popular</option>
+    </select>
+  </div>
+  <div class="poll-card"
+    *ngFor="let poll of polls | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+
+    <div class="poll-header">
+      <h3 class="poll-question">{{ poll.question }}</h3>
+      <p class="poll-type" [ngClass]="{ 'multiple': poll.allowMultipleSelect, 'single': !poll.allowMultipleSelect }">
+        <span *ngIf="poll.allowMultipleSelect; else singleChoiceIcon">Multiple</span>
+        <ng-template #singleChoiceIcon>Single</ng-template>
+      </p>
+    </div>
+
     <p class="creator">Created by: {{ poll.createdBy.firstName }} {{ poll.createdBy.lastName }}</p>
-    
+
     <div class="choices">
-      <label *ngFor="let choice of poll.choices">
-        <input 
-          type="checkbox" 
-          [checked]="selectedChoices[poll.id]?.includes(choice.id)"
-          (change)="toggleChoice(poll.id, choice.id)">
+      <label *ngFor="let choice of poll.choices" class="choice-label">
+        <input [type]="poll.allowMultipleSelect ? 'checkbox' : 'radio'" [name]="'poll_' + poll.id"
+        [checked]="(selectedChoices[poll.id] || []).includes(choice.id) || userVotedChoices.includes(choice.id)"
+          [disabled]="userVotedChoices.includes(choice.id)" (change)="toggleChoice(poll.id, choice.id)">
+
+        <span class="custom-input"></span>
         {{ choice.text }} (Votes: {{ choice.voteCount }})
       </label>
     </div>
@@ -17,12 +40,15 @@
       <button type="button" class="submit-vote" (click)="vote(poll.id, selectedChoices[poll.id] || [])">
         Submit Vote
       </button>
+      <button type="button" class="remove-votes" (click)="removeVotes(poll.id)">
+        Remove Votes
+      </button>
       <button type="button" class="view-analysis" (click)="userPollAnalysis(poll.id)">
         View Analysis
       </button>
     </div>
 
-    <p class="timestamp">Created At: {{ poll.createdAt | date:'short' }}</p>
+
   </div>
 </div>
 

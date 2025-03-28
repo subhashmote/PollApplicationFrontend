@@ -1,3 +1,4 @@
+
 <div>
   <h1>Poll Analysis</h1>
 </div>
@@ -60,17 +61,26 @@
       </div>
     </div>
   </div> -->
-  <!-- Right Column: Pie Chart Card -->
-  <div class="column chart-column">
-    <div class="chart-card">
-      <h3>Poll Vote Distribution</h3>
-      <div class="pie-chart" [style.background]="getPieChartStyle()"></div>
-      <div class="pie-legend">
-        <div class="legend-item" *ngFor="let choice of poll.choices; let i = index">
-          <span class="legend-color" [style.background]="dynamicColors[i]"></span>
-          <span class="legend-label">{{ choice.text }} ({{ choice.voteCount }} votes)</span>
-        </div>
+
+<!-- Chart Section -->
+<div class="column chart-column">
+  <div class="chart-card">
+    <h3>Poll Vote Distribution</h3>
+    <div class="pie-chart" *ngIf="poll">
+      <canvas #chartCanvas></canvas>
+    </div>
+    <!-- Custom Legend Below the Chart -->
+    <div class="pie-legend">
+      <div class="legend-item" *ngFor="let choice of poll.choices; let i = index">
+        <span class="legend-color" [style.background]="chartColors[i]"></span>
+        <span class="legend-label">{{ choice.text }} ({{ choice.voteCount }} votes)</span>
       </div>
     </div>
+    
   </div>
+</div>
+
+
+
+
 </div>

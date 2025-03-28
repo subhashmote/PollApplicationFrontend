@@ -69,3 +69,10 @@ button:nth-of-type(3) {
 button:nth-of-type(3):hover {
     background-color: #c82333;
 }
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: block;
+}

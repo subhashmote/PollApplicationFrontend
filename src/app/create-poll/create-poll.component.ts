@@ -1,40 +1,46 @@
-import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PollserviceService } from '../services/pollservice.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-poll',
-  standalone: true,
-  imports: [ReactiveFormsModule, NgFor, FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './create-poll.component.html',
   styleUrl: './create-poll.component.css'
 })
 export class CreatePollComponent implements OnInit {
   pollForm: FormGroup;
-  userId: number | null = null;  
+  userId: number | null = null;
 
   constructor(private fb: FormBuilder, private pollservice: PollserviceService, private router: Router) {
     this.pollForm = this.fb.group({
-      question: ['', Validators.required],
+      question: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
       choices: this.fb.array([
         this.fb.control('', Validators.required),
         this.fb.control('', Validators.required)
       ]),
-      pollLength: ['', [Validators.required, Validators.min(1)]],
-      allowMultipleSelect: [false],  
+      pollLength: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      allowMultipleSelect: [false],
       createdBy: []
     });
   }
 
   ngOnInit() {
     const user = localStorage.getItem("user");
-
     if (user) {
       const parsedUser = JSON.parse(user);
       this.userId = parsedUser.id;
     }
+  }
+
+  get question() {
+    return this.pollForm.get('question');
+  }
+
+  get pollLength() {
+    return this.pollForm.get('pollLength');
   }
 
   get choices() {
@@ -42,7 +48,9 @@ export class CreatePollComponent implements OnInit {
   }
 
   addChoice() {
-    this.choices.push(this.fb.control('', Validators.required));
+    if (this.choices.length < 10) {
+      this.choices.push(this.fb.control('', Validators.required));
+    }
   }
 
   removeChoice(index: number) {
@@ -62,8 +70,8 @@ export class CreatePollComponent implements OnInit {
         question: this.pollForm.value.question,
         choices: this.pollForm.value.choices.map((text: string) => ({ text })),
         pollLength: { hours: this.pollForm.value.pollLength },
-        allowMultipleSelect: this.pollForm.value.allowMultipleSelect,  
-        createdBy: this.userId  
+        allowMultipleSelect: this.pollForm.value.allowMultipleSelect,
+        createdBy: this.userId
       };
 
       this.pollservice.createPoll(formData).subscribe({

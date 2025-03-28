@@ -6,34 +6,34 @@ import { AuthserviceService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule,CommonModule,RouterModule,ReactiveFormsModule],
+  imports: [FormsModule, CommonModule, RouterModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router,private authservice:AuthserviceService) {
+  constructor(private fb: FormBuilder, private router: Router, private authservice: AuthserviceService) {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName:['',Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
+      lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
+      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]], // 10-digit number
     });
   }
 
   onSubmit() {
-    this.authservice.register(this.registerForm.value).subscribe((data:any)=>{
-      // console.log(data);
+    if (this.registerForm.invalid) {
+      return;
+    }
 
-      if(data.success == true){
-        alert("User Registered Successfully,Please Verify Your Account");
+    this.authservice.register(this.registerForm.value).subscribe((data: any) => {
+      if (data.success) {
+        alert("User Registered Successfully, Please Verify Your Account");
         this.router.navigate([`/verify/${data.data.id}`]);
+      } else {
+        alert("Error In Registering the User");
       }
-      else{
-        alert("Error In Registerting the user");
-      }
-    })
+    });
   }
 }

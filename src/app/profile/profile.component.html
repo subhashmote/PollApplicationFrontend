@@ -1,22 +1,40 @@
 <div>
     <h1>User Profile</h1>
 
-    <label>First Name:</label>
-    <input type="text" [(ngModel)]="userData.firstName" [disabled]="!isEditing">
+    <form #profileForm="ngForm" (ngSubmit)="updateUser()" novalidate>
 
-    <label>Last Name:</label>
-    <input type="text" [(ngModel)]="userData.lastName" [disabled]="!isEditing">
+        <label>First Name:</label>
+        <input type="text" [(ngModel)]="userData.firstName" name="firstName" 
+               [disabled]="!isEditing" required minlength="2" pattern="^[a-zA-Z]+$" #firstName="ngModel">
+        <span *ngIf="firstName.invalid && firstName.touched" class="error">
+            First name must be at least 2 characters and contain only letters.
+        </span>
 
-    <label>Email:</label>
-    <input type="email" [(ngModel)]="userData.email" [disabled]="!isEditing">
+        <label>Last Name:</label>
+        <input type="text" [(ngModel)]="userData.lastName" name="lastName" 
+               [disabled]="!isEditing" required minlength="2" pattern="^[a-zA-Z]+$" #lastName="ngModel">
+        <span *ngIf="lastName.invalid && lastName.touched" class="error">
+            Last name must be at least 2 characters and contain only letters.
+        </span>
 
-    <label>Phone Number:</label>
-    <input type="text" [(ngModel)]="userData.phone" [disabled]="!isEditing">
+        <label>Email:</label>
+        <input type="email" [(ngModel)]="userData.email" name="email" 
+               disabled required email #email="ngModel">
+        <span *ngIf="email.invalid && email.touched" class="error">
+            Please enter a valid email address.
+        </span>
 
-    <br><br>
+        <label>Phone Number:</label>
+        <input type="text" [(ngModel)]="userData.phone" name="phone" 
+               [disabled]="!isEditing" required pattern="^[0-9]{10}$" #phone="ngModel">
+        <span *ngIf="phone.invalid && phone.touched" class="error">
+            Phone number must be exactly 10 digits.
+        </span>
 
-    
-    <button *ngIf="!isEditing" (click)="toggleEdit()">Edit</button>
-    <button *ngIf="isEditing" (click)="updateUser()">Update</button>
-    <button *ngIf="isEditing" (click)="cancelEdit()">Cancel</button>
+        <br><br>
+
+        <button *ngIf="!isEditing" (click)="toggleEdit()" type="button">Edit</button>
+        <button *ngIf="isEditing" type="submit" [disabled]="profileForm.invalid">Update</button>
+        <button *ngIf="isEditing" (click)="cancelEdit()" type="button">Cancel</button>
+    </form>
 </div>

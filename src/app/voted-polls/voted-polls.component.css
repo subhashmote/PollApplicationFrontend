@@ -1,0 +1,99 @@
+.polls-container {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.no-polls {
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+  margin-top: 15px;
+}
+
+.poll-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 14px 16px; /* Increased padding for a 20% larger card */
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.08);
+  margin-bottom: 12px;
+  transition: 0.3s;
+  font-size: 1.2em; /* Overall increased font size */
+}
+
+.poll-card:hover {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.12);
+}
+
+.poll-card h3 {
+  font-size: 20px; /* Increased font size for question */
+  font-weight: 600;
+  margin-bottom: 15px; /* Extra space between question and choices */
+  color: #222;
+}
+
+.choices {
+  margin-top: 12px; /* More spacing between question and choices */
+}
+
+.choice {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #f5f5f5;
+  margin-bottom: 10px; /* Increased vertical gap between options */
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Media query for smaller screens - further increases the gap between options */
+@media (max-width: 600px) {
+  .choice {
+    margin-bottom: 15px; /* Extra vertical gap in smaller screens */
+    padding: 10px;
+  }
+}
+
+.timestamp {
+  font-size: 12px;
+  color: #777;
+  margin-top: 10px;
+}
+
+/* Updated style for the voted choice with a darker green */
+.voted-choice {
+  border: 2px solid #006400; /* Dark green border */
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #ccffcc; /* A light, contrasting green background */
+}
+
+
+.pagination-controls {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.pagination-controls a {
+  padding: 8px 12px;
+  margin: 0 5px;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pagination-controls a:hover {
+  background: #0056b3;
+}

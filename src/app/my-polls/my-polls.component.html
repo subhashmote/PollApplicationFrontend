@@ -15,7 +15,11 @@
       </div>
     </div>
 
-    <button type="button" (click)="pollAnalysis(poll.id)">View Analysis</button>
+    <div class="button-container">
+      <button type="button" (click)="pollAnalysis(poll.id)" class="view-analysis">View Analysis</button>
+      <button type="button" (click)="deleteMyPoll(poll.id)" class="del-poll">Delete Poll</button>
+    </div>
+    
 
     <p class="timestamp">Created At: {{ poll.createdAt | date:'medium' }}</p>
   </div>

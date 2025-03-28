@@ -5,19 +5,31 @@
     
     <label>Poll Question:</label>
     <input type="text" formControlName="question" placeholder="Enter your poll question" />
+    <div *ngIf="question?.invalid && question?.touched" class="error">
+      <span *ngIf="question?.errors?.['required']">Poll question is required.</span>
+      <span *ngIf="question?.errors?.['minlength']">Minimum 5 characters required.</span>
+      <span *ngIf="question?.errors?.['maxlength']">Maximum 100 characters allowed.</span>
+    </div>
 
     <div formArrayName="choices">
       <label>Choices:</label>
       <div *ngFor="let choice of choices.controls; let i = index" class="choice-container">
         <input type="text" [formControlName]="i" placeholder="Enter choice" />
-        <button type="button" class="remove-btn" (click)="removeChoice(i)">❌</button>
+        <button type="button" class="remove-btn" (click)="removeChoice(i)" *ngIf="choices.length > 2">❌</button>
+        <div *ngIf="choice.invalid && choice.touched" class="error">Choice cannot be empty.</div>
       </div>
     </div>
 
-    <button type="button" class="add-choice-btn" (click)="addChoice()">Add Choice</button>
+    <button type="button" class="add-choice-btn" (click)="addChoice()" [disabled]="choices.length >= 10">
+      Add Choice
+    </button>
 
     <label>Poll Duration (Hours):</label>
-    <input type="number" formControlName="pollLength" min="1" />
+    <input type="text" formControlName="pollLength" placeholder="Enter duration in hours" />
+    <div *ngIf="pollLength?.invalid && pollLength?.touched" class="error">
+      <span *ngIf="pollLength?.errors?.['required']">Poll duration is required.</span>
+      <span *ngIf="pollLength?.errors?.['pattern']">Enter a valid positive integer.</span>
+    </div>
 
     <div class="allow-multiple-container">
       <input type="checkbox" formControlName="allowMultipleSelect" id="allowMultipleSelect" />

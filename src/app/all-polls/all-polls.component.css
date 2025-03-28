@@ -11,6 +11,34 @@
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
+.poll-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.poll-type {
+  background: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  min-width: 80px;
+  text-align: center;
+}
+
+/* Apply green for multiple-choice polls */
+.poll-type.multiple {
+  background: #3f28a7; /* Green */
+}
+
+/* Apply red for single-choice polls */
+.poll-type.single {
+  background: #ff00f2; /* Red */
+}
+
 .creator, .timestamp {
   font-size: 0.9rem;
   color: #666;
@@ -22,37 +50,85 @@
   font-size: 1rem;
 }
 
-/* Button group container */
+/* Button group styling */
 .button-group {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px; /* Spacing between buttons */
   margin-top: 15px;
-  width: 100%;
 }
 
-/* Align buttons */
-.button-group .submit-vote {
-  background-color: #4caf50;
-  color: #fff;
+/* Submit Vote Button */
+.submit-vote {
+  background-color: #4caf50; /* Green */
+  color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: auto; /* Pushes to the left */
+  transition: background-color 0.3s;
 }
 
-.button-group .view-analysis {
-  background-color: #2196f3;
-  color: #fff;
+/* Remove Votes Button */
+.remove-votes {
+  background-color: #f44336; /* Red */
+  color: white;
   border: none;
   padding: 8px 12px;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: auto; /* Pushes to the right */
+  transition: background-color 0.3s;
 }
 
-/* Optional: Hover effects */
-.button-group button:hover {
-  opacity: 0.9;
+/* View Analysis Button */
+.view-analysis {
+  background-color: #2196f3; /* Blue */
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: auto; /* Pushes it to the right */
+  transition: background-color 0.3s;
+}
+
+/* Hover Effects */
+.submit-vote:hover {
+  background-color: #45a049;
+}
+
+.remove-votes:hover {
+  background-color: #d32f2f;
+}
+
+.view-analysis:hover {
+  background-color: #1976d2;
+}
+
+
+.filter-options {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.filter-options label {
+  font-weight: bold;
+}
+
+.filter-options select {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.live-polls-heading {
+  text-align: center;
+  margin-bottom: 20px;
 }

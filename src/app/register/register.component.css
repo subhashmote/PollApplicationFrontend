@@ -69,3 +69,10 @@ button:disabled {
 .register-btn, .login-btn {
   margin-top: 10px;
 }
+
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

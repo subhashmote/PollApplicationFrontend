@@ -1,26 +1,53 @@
-
-
 <div class="container">
-  <div class="card">
-      <h2>User Registration</h2>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-              <label for="fname">First Name</label>
-              <input type="text" id="fname" formControlName="firstName" required />
+    <div class="card">
+        <h2>User Registration</h2>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            
+            <!-- First Name -->
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" formControlName="firstName" required />
+                <div class="error" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+                  <small *ngIf="registerForm.get('firstName')?.errors?.['required']">First Name is required.</small>
+                  <small *ngIf="registerForm.get('firstName')?.errors?.['minlength']">Minimum 2 characters required.</small>
+                  <small *ngIf="registerForm.get('firstName')?.errors?.['maxLength']">Maximum 20 characters allowed.</small>
+                </div>
+            </div>
+  
+            <!-- Last Name -->
+            <div class="form-group">
+              <label for="lname">Last Name</label>
+              <input type="text" id="lname" formControlName="lastName" required />
+              <div class="error" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+                <small *ngIf="registerForm.get('lastName')?.errors?.['required']">Last Name is required.</small>
+                <small *ngIf="registerForm.get('lastName')?.errors?.['minlength']">Minimum 2 characters required.</small>
+                <small *ngIf="registerForm.get('lastName')?.errors?.['maxLength']">Maximum 20 characters allowed.</small>
+              </div>
           </div>
-          <div class="form-group">
-            <label for="lname">Last Name</label>
-            <input type="text" id="lname" formControlName="lastName" required />
-        </div>
-          <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" formControlName="email" required />
-          </div>
-          <div class="form-group">
-              <label for="phone">Phone</label>
-              <input type="text" id="phone" formControlName="phone" required />
-          </div>
-          <button type="submit" [disabled]="registerForm.invalid">Register</button>
-      </form>
+  
+            <!-- Email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" formControlName="email" required />
+                <div class="error" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+                  <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</small>
+                  <small *ngIf="registerForm.get('email')?.errors?.['email']">Enter a valid email address.</small>
+                </div>
+            </div>
+  
+            <!-- Phone -->
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" formControlName="phone" required />
+                <div class="error" *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
+                  <small *ngIf="registerForm.get('phone')?.errors?.['required']">Phone number is required.</small>
+                  <small *ngIf="registerForm.get('phone')?.errors?.['pattern']">Enter a valid 10-digit phone number.</small>
+                </div>
+            </div>
+  
+            <!-- Submit Button -->
+            <button type="submit" [disabled]="registerForm.invalid">Register</button>
+        </form>
+    </div>
   </div>
-</div>
+  

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PollserviceService } from '../services/pollservice.service';
 
 @Component({
   selector: 'app-my-polls',
@@ -22,7 +23,7 @@ export class MyPollsComponent implements OnInit {
   currentPage = 1;
   pollsPerPage = 2;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router,private pollservice:PollserviceService) { }
 
   ngOnInit() {
     this.getMyPolls();
@@ -47,5 +48,19 @@ export class MyPollsComponent implements OnInit {
 
   pollAnalysis(pollId: number) {
     this.router.navigate(['/dashboard/poll-analysis', pollId]);
+  }
+
+  deleteMyPoll(pollId:number){
+    this.pollservice.deleteMyPoll(pollId).subscribe((data:any)=>{
+      // console.log(data);
+
+      if(data.success){
+        alert("Poll Deleted Successfully");
+        this.getMyPolls();
+      }
+      else{
+        alert("Error In Deleting the poll");
+      }
+    }) 
   }
 }
